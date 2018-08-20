@@ -27,6 +27,7 @@ status_types =(
     ('res', 'Resolved'),
     ('dup', 'Duplicate'),
     ('cls', 'Closed'),
+    ('otr', 'Other'),
     ('sup', 'Supplied')
 )
 
@@ -434,6 +435,8 @@ class RequestUpdate(models.Model):
             max_length = 10,
             choices = status_types
         )
+
+    other_status = models.CharField(max_length=255, verbose_name='Status description if none of the default statuses are applicable', default='')
     updater_name = models.CharField(max_length=100, verbose_name='Name of person or group updating', blank=False)
 
     phone_number_regex = RegexValidator(regex='^((\+91|91|0)[\- ]{0,1})?[456789]\d{9}$', message='Please Enter 10/11 digit mobile number or landline as 0<std code><phone number>', code='invalid_mobile')
