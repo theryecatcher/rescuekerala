@@ -35,7 +35,7 @@ class RequestUpdateSerializer(serializers.ModelSerializer):
     request = RequestSerializer
     class Meta:
         model = RequestUpdate
-        fields = ('id', 'status', 'other_status', 'updater_name', 'updater_phone', 'notes', 'update_ts', 'request')
+        fields = ('id', 'status', 'other_status', 'updater_name', 'updater_phone', 'notes', 'request')
 
 class RescueCampViewSet(viewsets.ModelViewSet):
     queryset = RescueCamp.objects.filter()
