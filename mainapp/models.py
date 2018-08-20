@@ -436,8 +436,9 @@ class RequestUpdates(models.Model):
     phone_number_regex = RegexValidator(regex='^((\+91|91|0)[\- ]{0,1})?[456789]\d{9}$', message='Please Enter 10/11 digit mobile number or landline as 0<std code><phone number>', code='invalid_mobile')
     updater_phone = models.CharField(max_length=14,verbose_name='Phone number of person or group updating', validators=[phone_number_regex])
 
-    notes = models.CharField(max_length=300, verbose_name='Volunteer comments', blank=True)
+    notes = models.TextField(verbose_name='Volunteer comments', blank=True)
+
     update_ts = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.get_to_status_display()
+        return self.get_status_display()
