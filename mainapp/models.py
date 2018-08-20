@@ -425,7 +425,7 @@ class DataCollection(models.Model):
     def __str__(self):
         return self.document_name
 
-class RequestUpdates(models.Model):
+class RequestUpdate(models.Model):
     request = models.ForeignKey(Request, on_delete=models.CASCADE)
     status = models.CharField(
             max_length = 10,
