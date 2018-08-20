@@ -427,7 +427,7 @@ class DataCollection(models.Model):
 
 class RequestUpdates(models.Model):
     request = models.ForeignKey(Request, on_delete=models.CASCADE)
-    to_status = models.CharField(
+    status = models.CharField(
             max_length = 10,
             choices = status_types
         )
