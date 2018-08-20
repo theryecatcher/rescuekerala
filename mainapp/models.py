@@ -24,7 +24,10 @@ districts = (
 status_types =(
     ('new', 'New'),
     ('pro', 'In progess'),
-    ('sup', 'Supplied'),
+    ('res', 'Resolved'),
+    ('dup', 'Duplicate'),
+    ('cls', 'Closed'),
+    ('sup', 'Supplied')
 )
 
 contrib_status_types =(
