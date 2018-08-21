@@ -804,7 +804,7 @@ class CollectionCenterView(CreateView):
         'is_inside_kerala',
         'city',
     ]    
-    
+     
 class ContributorUpdateView(CreateView):
     model = ContributorUpdate
     template_name='mainapp/contributor_update.html'
