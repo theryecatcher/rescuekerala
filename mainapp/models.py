@@ -98,7 +98,6 @@ class LSGTypes(Enum):
     MUNICIPALITY = 1
     GRAMA_PANCHAYATH = 2
 
-
 class Request(models.Model):
     district = models.CharField(
         max_length = 15,
@@ -531,7 +530,8 @@ class ContributorUpdate(models.Model):
     contributor = models.ForeignKey(Contributor, on_delete=models.CASCADE)
     status = models.CharField(
             max_length = 10,
-            choices = contributor_update_status_types
+            choices = contrib_status_types,
+            default = 'new'
         )
 
     other_status = models.CharField(max_length=255, verbose_name='Please specify other status', default='', blank=True)
