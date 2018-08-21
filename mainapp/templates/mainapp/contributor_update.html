@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+ 
+ 
+ <div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th colspan="2" style="text-align:center;">Contributor Update</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><b> District : </b></td><td>{{ view.contributor.district }}</td>
+      </tr>
+      <tr>
+        <td><b> Name : </b></td><td>{{ view.contributor.name }}</td>
+      </tr>
+      <tr>
+        <td><b> Phone : </b></td><td>{{ view.contributor.phone }}</td>
+      </tr>
+      <tr>
+        <td><b> Address : </b></td><td>{{ view.contributor.address }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<h3 style="text-align:center;">Updates</h3>
+ <div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+		  <th>Status</th>
+		  <th>Updater Name</th>
+		  <th>Updater Phone</th>
+		  <th>Notes</th>
+		  <th>Update Time</th>
+      </tr>
+    </thead>
+
+    <tbody>
+		
+	    {% for update in view.updates %}
+	        <tr>
+	          <td>{{ update.status }} {{ update.other_status }}</td>
+	          <td>{{ update.updater_name }}</td>
+	          <td>{{ update.updater_phone }}</td>
+	          <td>{{ update.notes }}</td>
+	          <td>{{ update.update_ts }}</td>
+	        </tr>
+	    {% endfor %}
+		
+   </tbody>
+  </table>
+
+</div>
+
+  <h1 class="text-center">Contributor Updates</h1>
+  <h2 class="text-center">placeholder for malayalam ‍</h2>
+  <form method="post"  class="simple-form" id="contributor_update_form">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+
+  {% buttons %}
+  <button type="submit" class="btn btn-primary">
+  {% bootstrap_icon "star" %} Submit
+  </button>
+  {% endbuttons %}
+  </form>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>
+	  $(document).ready(function() {
+		  $("[name=other_status]").attr('type', 'hidden');
+		  $("[name=other_status]").attr('required', false)
+		  $("[for=id_other_status]").hide();
+		  
+	  })
+	  $("[name=status]").change(function() {
+		  var value = this.value;
+		  if(value !== 'otr') {
+		  	$("[name=other_status]").attr('type', 'hidden')
+			$("[name=other_status]").attr('required', false)
+			// $("[for=id_other_status]").hide();
+		  } else {
+		  	$("[name=other_status]").attr('type', 'text')
+			  // $("[for=id_other_status]").show();
+		  }
+	  })
+	  
+  </script>
+{% endblock %}

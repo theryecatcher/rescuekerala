@@ -7,7 +7,7 @@ from django.views.generic.list import ListView
 from mainapp.redis_queue import sms_queue
 from mainapp.sms_handler import send_confirmation_sms
 from .models import Request, Volunteer, DistrictManager, Contributor, DistrictNeed, Person, RescueCamp, NGO, \
-    Announcements , districts , PrivateRescueCamp
+    Announcements , districts , PrivateRescueCamp, ContributorUpdate
 import django_filters
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
@@ -815,7 +815,7 @@ class ContributorUpdateView(CreateView):
         'updater_phone',
         'notes'
     ]
-    success_url = '/contrib_update_success/'
+    success_url = '/contributor_update_success/'
     
     def contributor(self):
         return self.contributor
@@ -831,7 +831,7 @@ class ContributorUpdateView(CreateView):
         #     return redirect('/login'+'?next=request_updates/'+kwargs['request_id']+'/')
             
         self.contributor = get_object_or_404(Contributor, pk=kwargs['contributor_id'])
-        self.updates = ContributorUpdate.objects.all().filter(request_id=kwargs['contributor_id']).order_by('-update_ts')
+        self.updates = ContributorUpdate.objects.all().filter(contributor_id=kwargs['contributor_id']).order_by('-update_ts')
         return super().dispatch(request, *args, **kwargs)
         
     def form_valid(self, form):
@@ -840,5 +840,5 @@ class ContributorUpdateView(CreateView):
         self.object = form.save()
         return HttpResponseRedirect(self.get_success_url())
 
-class ContribUpdateSuccess(TemplateView):
+class ContributorUpdateSuccess(TemplateView):
     template_name = "mainapp/contributor_update_success.html"
