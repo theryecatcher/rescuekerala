@@ -49,4 +49,6 @@ urlpatterns = [
     path('announcements/', views.announcements, name="Announcements"),
     path('camp_requirements/', views.camp_requirements_list, name='camp_requirements_list'),
     path('submission_success/', views.SubmissionSuccess.as_view(), name='submission_success'),
+    url(r'contributor_update/(?P<contributor_id>\d+)/$', views.ContributorUpdateView.as_view(), name='contributorupdateview'),
+    path('contributor_update_success/', views.ContributorUpdateSuccess.as_view(), name='contributor_update_success')
 ]
