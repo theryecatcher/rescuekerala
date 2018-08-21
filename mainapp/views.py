@@ -782,4 +782,3 @@ class ContributorUpdateView(CreateView):
 
 class ContributorUpdateSuccess(TemplateView):
     template_name = "mainapp/contributor_update_success.html"
-    return render(request, "mainapp/camp_requirements_list.html", {'filter': filter , 'data' : data})
