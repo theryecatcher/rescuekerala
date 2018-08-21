@@ -693,3 +693,36 @@ def camp_requirements_list(request):
     page = request.GET.get('page')
     data = paginator.get_page(page)
     return render(request, "mainapp/camp_requirements_list.html", {'filter': filter , 'data' : data})
+
+class ContribUpdateView(CreateView):
+    model = ContribUpdate
+    template_name='mainapp/contributor_update.html'
+    fields = [
+        'status',
+        'updater_name',
+        'updater_phone',
+        'notes'
+    ]
+    success_url = '/req_update_success/'
+    
+    def original_request(self):
+        return self.original_request
+    
+    def updates(self):
+        return self.updates
+     #@method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        #could not use login_required decorator because it redirects to /accounts/login and we need /login
+        #disable authentication
+        # if not request.user.is_authenticated:
+        #     return redirect('/login'+'?next=request_updates/'+kwargs['request_id']+'/')
+            
+        self.original_request = get_object_or_404(Request, pk=kwargs['request_id'])
+        self.updates = ContribUpdate.objects.all().filter(request_id=kwargs['request_id']).order_by('-update_ts')
+        return super().dispatch(request, *args, **kwargs)
+        
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.request = self.original_request
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
