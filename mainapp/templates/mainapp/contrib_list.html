@@ -83,6 +83,7 @@
         <th>address -ml-</th>
         <th>commodities -ml-</th>
         <th>Status -ml-</th>
+        <th>Update</th>
       </tr>
     </thead>
     <tbody>
@@ -94,6 +95,7 @@
           <td>{{ req.address }}</td>
           <td>{{ req.commodities }}</td>
           <td>{{ req.get_status_display }}</td>
+          <td><a class="btn btn-sm btn-success" href="{%url 'contributorupdateview' req.id %}" target="_blank">Update</a></td>
         </tr>
     {% endfor %}
   </tbody>
