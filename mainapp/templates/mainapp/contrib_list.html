@@ -79,7 +79,9 @@
       <tr>
         <th>District - ജില്ല</th>
         <th>Name - ml</th>
-        <th>Phone - ഫോണ്‍ നമ്പര്‍</th>
+        {% if user.is_authenticated %}
+          <th>Phone - ഫോണ്‍ നമ്പര്‍</th>
+        {% endif %}
         <th>address -ml-</th>
         <th>commodities -ml-</th>
         <th>Status -ml-</th>
@@ -91,7 +93,9 @@
         <tr>
           <td>{{ req.get_district_display }}</td>
           <td>{{ req.name }}</td>
-          <td>{{ req.phone }}</td>
+          {% if user.is_authenticated %}
+            <td>{{ req.phone }}</td>
+          {% endif %}
           <td>{{ req.address }}</td>
           <td>{{ req.commodities }}</td>
           <td>{{ req.get_status_display }}</td>
