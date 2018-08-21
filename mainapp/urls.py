@@ -56,4 +56,6 @@ urlpatterns = [
     path('submission_success/', views.SubmissionSuccess.as_view(), name='submission_success'),
     path('consent_success/', views.ConsentSuccess.as_view(), name='consent_success'),
     url(r'c/(?P<pk>\d+)/(?P<ts>\d+)/$', views.VolunteerConsent.as_view(), name='volunteer_consent'),
+    url(r'contributor_update/(?P<contributor_id>\d+)/$', views.ContributorUpdateView.as_view(), name='contributorupdateview'),
+    path('contributor_update_success/', views.ContributorUpdateSuccess.as_view(), name='contributor_update_success')
 ]

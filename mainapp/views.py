@@ -780,7 +780,6 @@ def camp_requirements_list(request):
     data = paginator.get_page(page)
     return render(request, "mainapp/camp_requirements_list.html", {'filter': filter , 'data' : data})
 
-
 class CollectionCenterListView(ListView):
     model = CollectionCenter
     paginate_by = PER_PAGE
@@ -804,5 +803,42 @@ class CollectionCenterView(CreateView):
         'ward_name',
         'is_inside_kerala',
         'city',
+    ]    
+    
+class ContributorUpdateView(CreateView):
+    model = ContributorUpdate
+    template_name='mainapp/contributor_update.html'
+    fields = [
+        'status',
+        'other_status',
+        'updater_name',
+        'updater_phone',
+        'notes'
     ]
+    success_url = '/contrib_update_success/'
+    
+    def contributor(self):
+        return self.contributor
+    
+    def updates(self):
+        return self.updates
 
+    #@method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        #could not use login_required decorator because it redirects to /accounts/login and we need /login
+        #disable authentication
+        # if not request.user.is_authenticated:
+        #     return redirect('/login'+'?next=request_updates/'+kwargs['request_id']+'/')
+            
+        self.contributor = get_object_or_404(Contributor, pk=kwargs['contributor_id'])
+        self.updates = ContributorUpdate.objects.all().filter(request_id=kwargs['contributor_id']).order_by('-update_ts')
+        return super().dispatch(request, *args, **kwargs)
+        
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.contributor = self.contributor
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+class ContribUpdateSuccess(TemplateView):
+    template_name = "mainapp/contributor_update_success.html"
